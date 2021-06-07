@@ -2,11 +2,11 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "esModuleINterop": true,
+    "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
     "jsx": "react",
-    "rootDIr": "src",
+    "rootDir": "src",
     "baseUrl": "src",
     "allowJs": true,
     "skipLibCheck": true,
@@ -14,7 +14,6 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
     "noEmit": true
   },
   "include": ["src"]
