@@ -10,6 +10,6 @@ export class HttpPostClientSpy implements HttpPostClient {
   async post(params: HttpPostParams): Promise<void> {
     this.url = params.url
     this.body = params.body
-    return Promise.resolve()
+    await Promise.resolve()
   }
 }
