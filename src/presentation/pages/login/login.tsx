@@ -47,7 +47,7 @@ const Login: FC<Props> = ({ validation }: Props) => {
 
           <button
             data-testid='submit'
-            disabled
+            disabled={!!state.emailError || !!state.passwordError}
             className='submit'
             type='submit'
           >
