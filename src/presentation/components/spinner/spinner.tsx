@@ -7,7 +7,7 @@ type Props = {
 
 const Spinner: FC<Props> = ({ className }) => {
   return (
-    <div className={`spinner ${className}`}>
+    <div data-testid='spinner' className={`spinner ${className}`}>
       <div />
       <div />
       <div />
