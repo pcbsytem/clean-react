@@ -38,7 +38,7 @@ const Login: FC<Props> = ({ validation, authentication }: Props) => {
   ): Promise<void> => {
     e.preventDefault()
 
-    if (state.isLoading) {
+    if (state.isLoading || state.emailError || state.passwordError) {
       return
     }
 
@@ -53,7 +53,7 @@ const Login: FC<Props> = ({ validation, authentication }: Props) => {
     <div className='login'>
       <LoginHeader />
       <Context.Provider value={{ state, setState }}>
-        <form className='form' onSubmit={handleSubmit}>
+        <form data-testid='form' className='form' onSubmit={handleSubmit}>
           <h2>Login</h2>
 
           <Input type='email' name='email' placeholder='Digite seu e-mail' />
