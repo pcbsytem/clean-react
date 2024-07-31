@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Footer,
   Input,
@@ -24,6 +25,7 @@ const Login: FC<Props> = ({ validation, authentication }: Props) => {
     passwordError: '',
     mainError: ''
   })
+  const navegate = useNavigate()
 
   useEffect(() => {
     setState({
@@ -48,6 +50,7 @@ const Login: FC<Props> = ({ validation, authentication }: Props) => {
         password: state.password
       })
       localStorage.setItem('accessToken', account.accessToken)
+      navegate('/', { replace: true })
     } catch (error) {
       setState({
         ...state,
@@ -79,7 +82,15 @@ const Login: FC<Props> = ({ validation, authentication }: Props) => {
           >
             Entrar
           </button>
-          <span className='link'>Criar conta</span>
+          <span
+            data-testid='signup'
+            className='link'
+            onClick={() => {
+              navegate('/signup')
+            }}
+          >
+            Criar conta
+          </span>
           <FormStatus />
         </form>
       </Context.Provider>
