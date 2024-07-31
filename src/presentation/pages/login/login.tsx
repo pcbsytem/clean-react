@@ -25,7 +25,7 @@ const Login: FC<Props> = ({ validation, authentication }: Props) => {
     passwordError: '',
     mainError: ''
   })
-  const navegate = useNavigate()
+  const navigate = useNavigate()
 
   useEffect(() => {
     setState({
@@ -50,7 +50,7 @@ const Login: FC<Props> = ({ validation, authentication }: Props) => {
         password: state.password
       })
       localStorage.setItem('accessToken', account.accessToken)
-      navegate('/', { replace: true })
+      navigate('/', { replace: true })
     } catch (error) {
       setState({
         ...state,
@@ -86,7 +86,7 @@ const Login: FC<Props> = ({ validation, authentication }: Props) => {
             data-testid='signup'
             className='link'
             onClick={() => {
-              navegate('/signup')
+              navigate('/signup')
             }}
           >
             Criar conta

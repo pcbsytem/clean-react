@@ -21,6 +21,13 @@ type SutParams = {
   validationError: string
 }
 
+const mockUsedNavigate = jest.fn()
+jest.mock('react-router-dom', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+  ...(jest.requireActual('react-router-dom') as any),
+  useNavigate: () => mockUsedNavigate
+}))
+
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   const authenticationSpy = new AuthenticationSpy()
@@ -181,5 +188,12 @@ describe('Login Component', () => {
       'accessToken',
       authenticationSpy.account.accessToken
     )
+  })
+
+  test('Should go to signup page', () => {
+    const { sut } = makeSut()
+    const register = sut.getByTestId('signup')
+    fireEvent.click(register)
+    expect(mockUsedNavigate).toHaveBeenCalledWith('/signup')
   })
 })
