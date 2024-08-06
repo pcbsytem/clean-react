@@ -9,8 +9,11 @@ type SutTypes = {
 
 describe('ValidatioComposite', () => {
   const makeSut = (fieldName: string): SutTypes => {
-    const fieldValidationsSpy = [new FieldValidationSpy(fieldName), new FieldValidationSpy(fieldName)]
-    const sut = new ValidationComposite(fieldValidationsSpy)
+    const fieldValidationsSpy = [
+      new FieldValidationSpy(fieldName),
+      new FieldValidationSpy(fieldName)
+    ]
+    const sut = ValidationComposite.build(fieldValidationsSpy)
     return {
       sut,
       fieldValidationsSpy

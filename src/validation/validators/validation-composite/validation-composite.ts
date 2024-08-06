@@ -2,8 +2,10 @@ import { Validation } from '@/presentation/protocols/validation'
 import { FieldValidation } from '@/validation/protocols/field-validation'
 
 export class ValidationComposite implements Validation {
-  constructor(private readonly validations: FieldValidation[]) {
+  private constructor(private readonly validations: FieldValidation[]) { }
 
+  static build(validations: FieldValidation[]): ValidationComposite {
+    return new ValidationComposite(validations)
   }
 
   validate(fieldName: string, fieldValue: string): string {
