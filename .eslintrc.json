@@ -27,14 +27,3 @@
     "react/jsx-uses-vars": "error"
   }
 }
-
-// "@typescript-eslint/no-confusing-void-expression": "off",
-// "@typescript-eslint/unbound-method": "off",
-// "@typescript-eslint/strict-boolean-expressions": "off",
-//
-// "@typescript-eslint/no-unused-vars": "error",
-// "@typescript-eslint/consistent-type-definitions": "off",
-// "@typescript-eslint/strict-boolean-expression": "off",
-
-
-// "@typescript-eslint/camelcase": ["off"],
