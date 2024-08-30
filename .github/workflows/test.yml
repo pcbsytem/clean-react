@@ -29,7 +29,7 @@ jobs:
         run: npm install
 
       - name: Run ESLint
-        run: eslint 'src/**'
+        run: npx eslint 'src/**'
 
       - name: Run tests
         run: npm run test:ci
