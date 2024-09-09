@@ -1,6 +1,6 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { Router } from '@/presentation/components'
+import Router from '@/presentation/components/router/router'
 import '@/presentation/styles/global.scss'
 import { makeLogin } from './factories/pages/login/login-factory'
 
