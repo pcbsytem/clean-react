@@ -37,9 +37,9 @@ jest.mock('react-router-dom', () => {
 
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
+  validationStub.errorMessage = params?.validationError
   const authenticationSpy = new AuthenticationSpy()
   const saveAccessTokenMock = new SaveAccessTokenMock()
-  validationStub.errorMessage = params?.validationError
   const sut = render(
     <Login
       validation={validationStub}
