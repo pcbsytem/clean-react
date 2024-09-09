@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   Footer,
@@ -10,11 +10,19 @@ import Context from '@/presentation/contexts/form/form-context'
 import './signup-styles.scss'
 
 const SignUp: FC = () => {
+  const [state] = useState({
+    isLoading: false,
+    nameError: 'Campo obrigatório',
+    emailError: 'Campo obrigatório',
+    passwordError: 'Campo obrigatório',
+    passwordConfirmationError: 'Campo obrigatório',
+    mainError: ''
+  })
   const navigate = useNavigate()
   return (
     <div className='login'>
       <LoginHeader />
-      <Context.Provider value={{ state: {} }}>
+      <Context.Provider value={{ state }}>
         <form data-testid='form' className='form'>
           <h2>Criar Conta</h2>
 
@@ -31,7 +39,12 @@ const SignUp: FC = () => {
             placeholder='Repita sua senha'
           />
 
-          <button data-testid='submit' className='submit' type='submit'>
+          <button
+            data-testid='submit'
+            disabled
+            className='submit'
+            type='submit'
+          >
             Entrar
           </button>
           <span
