@@ -48,6 +48,9 @@ const SignUp: FC<Props> = ({ validation, addAccount }: Props) => {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault()
+    if (state.isLoading) {
+      return
+    }
     setState({ ...state, isLoading: true })
     await addAccount.add({
       name: state.name,
