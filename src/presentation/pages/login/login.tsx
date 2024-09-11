@@ -88,7 +88,7 @@ const Login: FC<Props> = ({
             Entrar
           </button>
           <span
-            data-testid='signup'
+            data-testid='signup-link'
             className='link'
             onClick={() => {
               navigate('/signup')
