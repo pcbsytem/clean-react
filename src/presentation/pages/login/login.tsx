@@ -4,7 +4,8 @@ import {
   Footer,
   Input,
   FormStatus,
-  LoginHeader
+  LoginHeader,
+  SubmitButton
 } from '@/presentation/components'
 import Context from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
@@ -24,6 +25,7 @@ const Login: FC<Props> = ({
 }: Props) => {
   const [state, setState] = useState({
     isLoading: false,
+    isFormInvalid: true,
     email: '',
     password: '',
     emailError: '',
@@ -33,10 +35,13 @@ const Login: FC<Props> = ({
   const navigate = useNavigate()
 
   useEffect(() => {
+    const emailError = validation.validate('email', state.email)
+    const passwordError = validation.validate('password', state.password)
     setState({
       ...state,
-      emailError: validation.validate('email', state.email),
-      passwordError: validation.validate('password', state.password)
+      emailError,
+      passwordError,
+      isFormInvalid: !!emailError || !!passwordError
     })
   }, [state.email, state.password])
 
@@ -45,7 +50,7 @@ const Login: FC<Props> = ({
   ): Promise<void> => {
     e.preventDefault()
     try {
-      if (state.isLoading || state.emailError || state.passwordError) {
+      if (state.isLoading || state.isFormInvalid) {
         return
       }
 
@@ -71,22 +76,13 @@ const Login: FC<Props> = ({
       <Context.Provider value={{ state, setState }}>
         <form data-testid='form' className='form' onSubmit={handleSubmit}>
           <h2>Login</h2>
-
           <Input type='email' name='email' placeholder='Digite seu e-mail' />
           <Input
             type='password'
             name='password'
             placeholder='Digite sua senha'
           />
-
-          <button
-            data-testid='submit'
-            disabled={!!state.emailError || !!state.passwordError}
-            className='submit'
-            type='submit'
-          >
-            Entrar
-          </button>
+          <SubmitButton text='Entrar' />
           <span
             data-testid='signup-link'
             className='link'
