@@ -18,7 +18,9 @@ app.post("/login", (req, res) => {
   const user = users.find((u) => u.email === email && u.password === password);
 
   if (user) {
-    res.status(200).json({ accessToken: user.accessToken });
+    setTimeout(() => {
+      res.status(200).json({ accessToken: user.accessToken });
+    }, 1000);
   } else {
     res.status(401).json({ message: "Invalid email or password" });
   }
