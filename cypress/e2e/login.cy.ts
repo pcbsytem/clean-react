@@ -57,4 +57,18 @@ describe('Cypress TS', () => {
       .getByTestId('main-error').should('contain.text', 'Credenciais inválidas')
     cy.url().should('eq', `${baseUrl.replace(/\/$/, '')}/login`)
   })
+
+  it('Should present save accessToken if valid credentials are provided', () => {
+    cy.getByTestId('email').focus().type('user@example.com')
+    cy.getByTestId('password').focus().type('password123')
+    cy.getByTestId('submit').click()
+    cy.getByTestId('error-wrap')
+      .getByTestId('spinner').should('exist')
+      .getByTestId('main-error').should('not.exist')
+      .getByTestId('spinner').should('not.exist')
+    cy.url().should('eq', `${baseUrl.replace(/\/$/, '')}/`)
+    cy.window().then((window: Window) => {
+      assert.isOk(window.localStorage.getItem('accessToken'));
+    });
+  })
 })
