@@ -42,6 +42,6 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new EnvironmentPlugin({ API_URL: "http://localhost:5050/api" })
+    new EnvironmentPlugin({ API_URL: "http://localhost:5050" })
   ]
 };
