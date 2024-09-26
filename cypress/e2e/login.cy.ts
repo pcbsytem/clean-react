@@ -98,8 +98,8 @@ describe('Cypress TS', () => {
         accessToken: faker.random.uuid()
       }
     });
-    cy.getByTestId('email').focus().type('user@example.com')
-    cy.getByTestId('password').focus().type('password123')
+    cy.getByTestId('email').focus().type(faker.internet.email())
+    cy.getByTestId('password').focus().type(faker.random.alphaNumeric(5))
     cy.getByTestId('submit').click()
     cy.getByTestId('main-error').should('not.exist')
     cy.getByTestId('spinner').should('not.exist')
