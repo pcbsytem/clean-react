@@ -1,3 +1,4 @@
+import { delay } from 'cypress/types/bluebird';
 import faker from 'faker';
 
 const baseUrl: string = Cypress.config().baseUrl
@@ -84,8 +85,7 @@ describe('Cypress TS', () => {
       }
     });
     cy.getByTestId('email').focus().type(faker.internet.email())
-    cy.getByTestId('password').focus().type(faker.random.alphaNumeric(5))
-    cy.getByTestId('submit').click()
+    cy.getByTestId('password').focus().type(faker.random.alphaNumeric(5)).type('{enter}')
     cy.getByTestId('spinner').should('not.exist')
     cy.getByTestId('main-error').should('contain.text', 'Algo de errado aconteceu. Tente novamente em breve.')
     cy.url().should('eq', `${baseUrl.replace(/\/$/, '')}/login`)
@@ -107,5 +107,21 @@ describe('Cypress TS', () => {
     cy.window().then((window: Window) => {
       assert.isOk(window.localStorage.getItem('accessToken'));
     });
+  })
+
+  it('Should present multiple submits', () => {
+    cy.intercept('POST', /login/, (req) => {
+      req.reply({
+        statusCode: 200,
+        body: {
+          accessToken: faker.random.uuid()
+        },
+        delay: 1300
+      });
+    }).as('request');
+    cy.getByTestId('email').focus().type(faker.internet.email())
+    cy.getByTestId('password').focus().type(faker.random.alphaNumeric(5))
+    cy.getByTestId('submit').dblclick()
+    cy.get('@request.all').should('have.length', 1)
   })
 })
