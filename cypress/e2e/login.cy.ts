@@ -109,19 +109,14 @@ describe('Cypress TS', () => {
     });
   })
 
-  it('Should present multiple submits', () => {
-    cy.intercept('POST', /login/, (req) => {
-      req.reply({
-        statusCode: 200,
-        body: {
-          accessToken: faker.random.uuid()
-        },
-        delay: 1300
-      });
+  it('Should not call submit if form is invalid', () => {
+    cy.intercept('POST', /login/, {
+      statusCode: 200,
+      body: {
+        accessToken: faker.random.uuid()
+      }
     }).as('request');
-    cy.getByTestId('email').focus().type(faker.internet.email())
-    cy.getByTestId('password').focus().type(faker.random.alphaNumeric(5))
-    cy.getByTestId('submit').dblclick()
-    cy.get('@request.all').should('have.length', 1)
+    cy.getByTestId('email').focus().type(faker.internet.email()).type('{enter}')
+    cy.get('@request.all').should('have.length', 0)
   })
 })
