@@ -18,19 +18,16 @@ const Input: FC<Props> = (props: Props) => {
     setState({ ...state, [e.target.name]: e.target.value })
   }
 
-  const getStatus = (): string => {
-    return error ? '🔴' : '🟢'
-  }
-
-  const getTitle = (): string => {
-    return error || 'Tudo certo!'
-  }
-
   return (
-    <div className='inputWrap'>
+    <div
+      data-testid={`${props.name}-wrap`}
+      className='inputWrap'
+      data-status={error ? 'invalid' : 'valid'}
+    >
       <input
         {...props}
         ref={inputRef}
+        title={error}
         placeholder=''
         data-testid={props.name}
         readOnly
@@ -38,19 +35,14 @@ const Input: FC<Props> = (props: Props) => {
         onChange={handleChange}
       />
       <label
+        data-testid={`${props.name}-label`}
+        title={error}
         onClick={() => {
           inputRef.current.focus()
         }}
       >
         {props.placeholder}
       </label>
-      <span
-        data-testid={`${props.name}-status`}
-        title={getTitle()}
-        className='status'
-      >
-        {getStatus()}
-      </span>
     </div>
   )
 }

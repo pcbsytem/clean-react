@@ -5,11 +5,27 @@
   position: relative;
   border-bottom: 2px solid $disabledColor;
 
+  &[data-status='valid'] {
+    border-bottom-color: $valid;
+
+    &::after {
+      background-color: $valid;
+    }
+  }
+
+  &[data-status='invalid'] {
+    border-bottom-color: $invalid;
+
+    &::after {
+      background-color: $invalid;
+    }
+  }
+
   &::after {
     content: '';
     width: 100%;
     height: 2px;
-    background-color: $primaryLight;
+    background-color: $disabledColor;
     position: absolute;
     bottom: 0px;
     left: 0px;
