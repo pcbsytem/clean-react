@@ -5,7 +5,7 @@ import { RemoteAddAccount } from '@/data/usecases'
 
 export const makeRemoteAddAccount = (): AddAccount => {
   return new RemoteAddAccount(
-    makeApiUrl('/login'),
+    makeApiUrl('/signup'),
     makeAxiosHttpClient()
   )
 }
