@@ -89,7 +89,7 @@ const SignUp: FC<Props> = ({
   }
 
   return (
-    <div className='login'>
+    <div className='signup'>
       <LoginHeader />
       <Context.Provider value={{ state, setState }}>
         <form data-testid='form' className='form' onSubmit={handleSubmit}>
