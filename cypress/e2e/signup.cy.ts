@@ -3,7 +3,7 @@ import * as FormHelper from '../support/form-helper';
 import * as Http from '../support/signup-mock';
 
 const simulateValidSubmit = (): void => {
-  cy.getByTestId('name').focus().type(faker.name.findName())
+  cy.getByTestId('name').focus().type(faker.random.alphaNumeric(7))
   cy.getByTestId('email').focus().type(faker.internet.email())
   const password = faker.random.alphaNumeric(7)
   cy.getByTestId('password').focus().type(password)
@@ -44,7 +44,7 @@ describe('Cypress TS', () => {
   })
 
   it('Should present valid state if form is valid', () => {
-    cy.getByTestId('name').focus().type(faker.name.findName())
+    cy.getByTestId('name').focus().type(faker.random.alphaNumeric(5))
     FormHelper.testInputStatus('name')
     cy.getByTestId('email').focus().type(faker.internet.email())
     FormHelper.testInputStatus('email')
@@ -63,4 +63,12 @@ describe('Cypress TS', () => {
     FormHelper.testMainError('Esse e-mail já está em uso')
     FormHelper.testUrl('/signup')
   })
+
+  it('Should present UnexpectedError on default error cases', () => {
+    Http.mockUnexpectedError()
+    simulateValidSubmit()
+    FormHelper.testMainError('Algo de errado aconteceu. Tente novamente em breve.')
+    FormHelper.testUrl('/signup')
+  })
+
 })
