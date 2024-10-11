@@ -4,7 +4,7 @@ import './login-header-styles.scss'
 
 const LoginHeader: FC = () => {
   return (
-    <header className='header'>
+    <header className='headerWrap'>
       <Logo />
       <h1>4Dev - Enquetes para Programadores</h1>
     </header>
