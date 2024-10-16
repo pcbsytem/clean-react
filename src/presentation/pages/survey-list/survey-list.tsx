@@ -24,36 +24,7 @@ const SurveyList: FC = () => {
             </div>
             <footer>Ver Resultado</footer>
           </li>
-          <li>
-            <div className='surveyContent'>
-              <Icon
-                className={'iconSurveyWrap'}
-                iconName={IconName.thumbDown}
-              />
-              <time>
-                <span className='day'>10</span>
-                <span className='month'>10</span>
-                <span className='year'>2024</span>
-              </time>
-              <p>Qual é seu framework web favorito?</p>
-            </div>
-            <footer>Ver Resultado</footer>
-          </li>
-          <li>
-            <div className='surveyContent'>
-              <Icon
-                className={'iconSurveyWrap'}
-                iconName={IconName.thumbDown}
-              />
-              <time>
-                <span className='day'>10</span>
-                <span className='month'>10</span>
-                <span className='year'>2024</span>
-              </time>
-              <p>Qual é seu framework web favorito?</p>
-            </div>
-            <footer>Ver Resultado</footer>
-          </li>
+          <li></li>
         </ul>
       </div>
       <Footer />
