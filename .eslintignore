@@ -5,3 +5,4 @@ public
 *.scss
 *.d.ts
 *.json
+jest.config.js
