@@ -7,19 +7,16 @@ import {
   RenderResult,
   waitFor
 } from '@testing-library/react'
+import { ApiContext } from '@/presentation/contexts'
 import { Login } from '@/presentation/pages'
-import {
-  AuthenticationSpy,
-  UpdateCurrentAccountMock,
-  ValidationStub,
-  Helper
-} from '@/presentation/test'
+import { AuthenticationSpy, ValidationStub, Helper } from '@/presentation/test'
 import { InvalidCredentialsError } from '@/domain/errors'
+import { AccountModel } from '@/domain/models'
 
 type SutTypes = {
   sut: RenderResult
   authenticationSpy: AuthenticationSpy
-  updateCurrentAccountMock: UpdateCurrentAccountMock
+  setCurrentAccountMock: (account: AccountModel) => void
 }
 
 type SutParams = {
@@ -39,18 +36,16 @@ const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   validationStub.errorMessage = params?.validationError
   const authenticationSpy = new AuthenticationSpy()
-  const updateCurrentAccountMock = new UpdateCurrentAccountMock()
+  const setCurrentAccountMock = jest.fn()
   const sut = render(
-    <Login
-      validation={validationStub}
-      authentication={authenticationSpy}
-      updateCurrentAccount={updateCurrentAccountMock}
-    />
+    <ApiContext.Provider value={{ setCurrentAccount: setCurrentAccountMock }}>
+      <Login validation={validationStub} authentication={authenticationSpy} />
+    </ApiContext.Provider>
   )
   return {
     sut,
     authenticationSpy,
-    updateCurrentAccountMock
+    setCurrentAccountMock
   }
 }
 
@@ -148,21 +143,12 @@ describe('Login Component', () => {
   })
 
   test('Should call SaveAccessToken on success', async () => {
-    const { sut, authenticationSpy, updateCurrentAccountMock } = makeSut()
+    const { sut, authenticationSpy, setCurrentAccountMock } = makeSut()
     await simulateValidSubmit(sut)
-    expect(updateCurrentAccountMock.account).toEqual(authenticationSpy.account)
+    expect(setCurrentAccountMock).toHaveBeenCalledWith(
+      authenticationSpy.account
+    )
     expect(mockUsedNavigate).toHaveBeenCalledWith('/', { replace: true })
-  })
-
-  test('Should present error if SaveAccessToken fails', async () => {
-    const { sut, updateCurrentAccountMock } = makeSut()
-    const error = new InvalidCredentialsError()
-    jest.spyOn(updateCurrentAccountMock, 'save').mockRejectedValueOnce(error)
-    await simulateValidSubmit(sut)
-    await waitFor(() => {
-      Helper.testElementText(sut, 'main-error', error.message)
-    })
-    Helper.testChildCount(sut, 'error-wrap', 1)
   })
 
   test('Should go to signup page', () => {
